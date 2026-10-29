@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom'
-import { Smartphone, Sun, Image as ImageIcon, CheckCircle2 } from 'lucide-react'
+import { Smartphone, Sun, Image as ImageIcon, CheckCircle2, ArrowLeft } from 'lucide-react'
 
 const steps = [
-  { icon: <Smartphone className="w-6 h-6" />, title: 'Bersihkan kaki', desc: 'Lepas sepatu dan kaus kaki. Pastikan kaki bersih dari luka atau kotoran.' },
-  { icon: <Sun className="w-6 h-6" />, title: 'Pencahayaan cukup', desc: 'Foto di tempat terang, hindari bayangan langsung di area kaki.' },
-  { icon: <ImageIcon className="w-6 h-6" />, title: 'Sudut yang sama', desc: 'Ambil foto dari atas (top-down) dengan posisi kaki di tengah frame.' },
-  { icon: <CheckCircle2 className="w-6 h-6" />, title: 'Kiri dan kanan', desc: 'Foto kaki kiri dan kanan secara terpisah atau dalam satu frame dengan jarak yang sama.' },
+  { icon: <Smartphone className="w-6 h-6" />, title: 'Bersihkan Kaki', desc: 'Lepas sepatu dan kaus kaki. Pastikan kaki bersih dan tidak terhalang pakaian.' },
+  { icon: <Sun className="w-6 h-6" />, title: 'Pencahayaan Cukup', desc: 'Foto di ruangan terang dengan pencahayaan merata. Hindari bayangan keras.' },
+  { icon: <ImageIcon className="w-6 h-6" />, title: 'Sudut Tegak Lurus', desc: 'Ambil foto dari atas (top-down) dengan posisi kamera sejajar di atas kaki.' },
+  { icon: <CheckCircle2 className="w-6 h-6" />, title: 'Foto Kiri & Kanan', desc: 'Ambil foto kaki kiri dan kanan bergantian dari jarak yang sama (sekitar 30-40 cm).' },
 ]
 
 export default function Guide() {
@@ -13,11 +13,11 @@ export default function Guide() {
   return (
     <div className="min-h-screen bg-surface px-6 py-8">
       <header className="mb-8">
-        <button onClick={() => navigate('/')} className="text-muted hover:text-ink transition">
-          ← Kembali
+        <button onClick={() => navigate('/')} className="flex items-center gap-1.5 text-slate-600 hover:text-slate-900 transition font-medium text-sm mb-3">
+          <ArrowLeft className="w-4 h-4" /> Kembali ke Beranda
         </button>
-        <h1 className="text-2xl font-bold mt-2">Panduan Foto</h1>
-        <p className="text-muted">Ikuti langkah ini agar hasil akurat</p>
+        <h1 className="text-2xl font-bold text-slate-900">Panduan Foto Kaki</h1>
+        <p className="text-slate-500 text-sm mt-1">Ikuti petunjuk ini agar hasil deteksi lebih akurat</p>
       </header>
 
       <div className="space-y-4">

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Clock, Trash2 } from 'lucide-react'
+import { Clock, Trash2, ArrowLeft } from 'lucide-react'
 import RiskBadge from '../components/RiskBadge'
 import db from '../db'
 
@@ -26,12 +26,12 @@ export default function History() {
   return (
     <div className="min-h-screen bg-surface px-4 py-6">
       <header className="flex justify-between items-center mb-6">
-        <button onClick={() => navigate('/')} className="text-muted hover:text-ink">
-          ← Kembali
+        <button onClick={() => navigate('/')} className="p-2 -ml-2 text-slate-600 hover:text-slate-900 transition flex items-center gap-1">
+          <ArrowLeft className="w-5 h-5" />
         </button>
         <div className="flex items-center gap-2">
-          <Clock className="w-5 h-5 text-muted" />
-          <h1 className="text-xl font-bold">Riwayat Deteksi</h1>
+          <Clock className="w-5 h-5 text-slate-600" />
+          <h1 className="text-xl font-bold text-slate-900">Riwayat Deteksi</h1>
         </div>
       </header>
 
