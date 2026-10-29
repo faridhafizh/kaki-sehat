@@ -1,0 +1,73 @@
+import sharp from 'sharp'
+import fs from 'fs'
+import path from 'path'
+
+const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="120" fill="url(#bgGrad)" />
+
+  <!-- White Shield Emblem -->
+  <g filter="url(#shadow)">
+    <path d="M256 80 C336 80 390 100 390 100 V245 C390 350 316 420 256 448 C196 420 122 350 122 245 V100 C122 100 176 80 256 80 Z" fill="#FFFFFF" />
+  </g>
+
+  <!-- Footprint + Pulse Checkmark Motif inside Shield -->
+  <g transform="translate(136, 120)">
+    <!-- Heel & Foot outline -->
+    <path d="M120 40 C165 40 185 70 180 115 C175 155 165 185 160 220 C155 255 142 275 120 275 C98 275 85 250 85 215 C85 175 95 135 90 95 C85 55 100 40 120 40 Z" fill="#D1FAE5" opacity="0.6" />
+
+    <!-- Dynamic Heartbeat / Pulse Line -->
+    <path d="M 40 155 L 75 155 L 98 100 L 125 210 L 152 128 L 175 155 L 205 155" fill="none" stroke="#10B981" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" />
+
+    <!-- Top Medical Cross Icon -->
+    <path d="M 120 42 V 82 M 100 62 H 140" fill="none" stroke="#059669" stroke-width="16" stroke-linecap="round" />
+  </g>
+</svg>`
+
+async function main() {
+  const publicDir = path.resolve('public')
+  if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir, { recursive: true })
+  }
+
+  // Write SVG file
+  fs.writeFileSync(path.join(publicDir, 'favicon.svg'), svgContent)
+  fs.writeFileSync(path.join(publicDir, 'logo.svg'), svgContent)
+
+  const buffer = Buffer.from(svgContent)
+
+  // Generate 192x192
+  await sharp(buffer)
+    .resize(192, 192)
+    .png()
+    .toFile(path.join(publicDir, 'pwa-192x192.png'))
+
+  // Generate 512x512
+  await sharp(buffer)
+    .resize(512, 512)
+    .png()
+    .toFile(path.join(publicDir, 'pwa-512x512.png'))
+
+  // Generate Apple Touch Icon 180x180
+  await sharp(buffer)
+    .resize(180, 180)
+    .png()
+    .toFile(path.join(publicDir, 'apple-touch-icon.png'))
+
+  console.log('✅ App icons (SVG and PNG) generated successfully!')
+}
+
+main().catch(err => {
+  console.error(err)
+  process.exit(1)
+})
